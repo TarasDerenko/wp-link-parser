@@ -174,14 +174,14 @@ function parser_pagination($args = array()){
 
 
 	if($current == 1){
-		$page_linksss_1 = '<li><span aria-hidden="true">&laquo;</span></li>';
+		$page_linksss_1 = '<li class="noactive"><span aria-hidden="true">&laquo;</span></li>';
 	}else{
 		$page_linksss_1 = '<li><a data-paged="'. ($current - 1) .'" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';		
 	}
 
 	for ( $n = 1; $n <= $total; $n++ ) :
 		if ( $n == $current ) :
-			$page_links[] = "<li><span>" . number_format_i18n( $n ) . "</span></li>";
+			$page_links[] = "<li class='noactive'><span>" . number_format_i18n( $n ) . "</span></li>";
 			$dots = true;
 		else :
 			if ( $args['show_all'] || ( $n <= $end_size || ( $current && $n >= $current - $mid_size && $n <= $current + $mid_size ) || $n > $total - $end_size ) ) :
@@ -194,7 +194,7 @@ function parser_pagination($args = array()){
 		endif;
 	endfor;
 		if($current == $total){
-			$page_linksss_2 = '<li><span aria-hidden="true">&raquo;</span></li>';
+			$page_linksss_2 = '<li class="noactive"><span aria-hidden="true">&raquo;</span></li>';
 		}else{
 			$page_linksss_2 = '<li><a data-paged="' . ($current + 1) . '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
 		}

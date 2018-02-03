@@ -69,6 +69,7 @@ function ajax_create_csv(){
 	isset($_POST['data']) || die;
 	$path = __DIR__.'/csv/links_parser.csv';
 	$csv = fopen($path, 'w');
+	fputcsv($csv, array('#','anchor','url','page','rel','target'));
 	foreach ($_POST['data'] as $line) {
 		fputcsv($csv, $line);
 	}

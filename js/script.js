@@ -1,4 +1,5 @@
 jQuery('#search').click(function(){
+	window.location.hash = '';
 	parseAJAX();
 });
 
@@ -42,7 +43,7 @@ function parseAJAX(paged){
 	var search = [];
 	var paged = ( paged ) ? paged : 1;
 	var id = jQuery('#search-by-id').val().trim();
-	jQuery('.parse-table tbody').empty();
+	jQuery('.parse-table tbody,.parse-pagination').empty();
 	jQuery('.post-type').each(function(index,el){
 		if(jQuery(el).is(':checked'))
 			type.push(el.value);
@@ -66,8 +67,6 @@ function parseAJAX(paged){
 			createParseContent(data.content);
 			if(data.pagi.length > 0)
 				jQuery('.parse-pagination').html(data.pagi);
-			if(data.length < 1)
-				jQuery('.next,.prev').attr('data-paged',paged-1);
 		}
 	});
 }
@@ -122,7 +121,9 @@ jQuery('.parse-table th span').click(function(){
 });
 
 jQuery('.parse-pagination').on('click','[data-paged]',function(){
-	parseAJAX(jQuery(this).attr('data-paged'));
+	var paged = jQuery(this).attr('data-paged');
+	parseAJAX(paged);
+	window.location.hash = 'page'+paged;
 });
 
 function showEdit(el){
@@ -191,7 +192,7 @@ jQuery('#export').click(function(){
 			id:jQuery(element).find('td').eq(0).text(),
 			anchor:jQuery(element).find('td').eq(1).text(),
 			url:jQuery(element).find('td').eq(2).text(),
-			page:jQuery(element).find('td').eq(3).text(),
+			page:jQuery(element).find('td').eq(3).find('span').text(),
 			rel:jQuery(element).find('td').eq(4).text(),
 			target:jQuery(element).find('td').eq(5).text(),
 		});
